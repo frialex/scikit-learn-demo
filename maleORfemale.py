@@ -9,8 +9,14 @@ X = [
 Y = ['male', 'female', 'male', 'male', 
     'female', 'male', 'female', 'female']
 
+print("creating classifier and fitting model")
 classifier = tree.DecisionTreeClassifier()
 classifier = classifier.fit(X, Y)
-prediction = classifier.predict([[180, 70, 42]])
+
+
+r1 = [210, 70, 47] #male
+r2 = [210, 70, 42] #female
+print("predicting...")
+prediction = classifier.predict([r1])
 
 print(prediction)
