@@ -16,14 +16,16 @@ from sklearn import datasets
 print("starting program")
 np.random.seed(5)
 
+print("Loading IRIS data set")
 iris = datasets.load_iris()
 X = iris.data
 y = iris.target
 
-estimators = [('k_means_iris_8', KMeans(n_cluster=8)),
-              ('k_means_iris_3', KMeans(n_cluster=3)),
+estimators = [('k_means_iris_8', KMeans(n_clusters=8)),
+              ('k_means_iris_3', KMeans(n_clusters=3)),
               ('k_means_iris_bad_init', KMeans(n_clusters=3, n_init=1, init='random') )]
 
+print("Building graph")
 fignum = 1
 titles = ['8 clusters', '3 clusters', '3 clusters, bad initialization']
 
@@ -32,3 +34,19 @@ for name, est in estimators:
     ax = Axes3D(fig, rect=[0,0, .95, 1], elev=48, azim=134)
     est.fit(X)
     labels = est.labels_
+
+    ax.scatter(X[:, 3], X[:, 0], X[:, 2], 
+                c=labels.astype(np.float), edgecolor='k')
+
+    ax.w_xaxis.set_ticklabels([])
+    ax.w_yaxis.set_ticklabels([])
+    ax.w_zaxis.set_ticklabels([])
+    ax.set_xlabel('Petal width')
+    ax.set_ylabel('Sepal length')
+    ax.set_zlabel('Petal length')
+    ax.set_title(titles[fignum - 1])
+    ax.dist = 12
+    fignum = fugnum + 1
+
+
+# plot the ground truth [?]
